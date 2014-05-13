@@ -162,7 +162,7 @@ describe User do
     end
 
     it "should destroy associated microposts" do
-      microposts = @user.microposts.dup
+      microposts = @user.microposts.to_a
       @user.destroy
       microposts.should_not be_empty
       microposts.each do |micropost|
