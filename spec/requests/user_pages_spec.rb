@@ -25,7 +25,7 @@ describe "User pages" do
 
       it "should list each user" do
         User.paginate(page: 1).each do |user|
-          page.should have_selector('li', text: user.name)
+          expect(page).to have_selector('li', text: user.name)
         end
       end
     end
@@ -203,8 +203,8 @@ describe "User pages" do
       it { should have_title(new_name) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
-      specify { user.reload.name.should == new_name }
-      specify { user.reload.email.should == new_email }
+      specify { expect(user.reload.name).to eq new_name }
+      specify { expect(user.reload.email).to eq new_email }
     end
   end
 
@@ -240,12 +240,12 @@ describe "User pages" do
 
       it "user destroy" do
         user.destroy
-        Relationship.find_by_id(re.id).should be_nil
+        expect(Relationship.find_by_id(re.id)).to be_nil
       end
 
       it "other_user destroy" do
         other_user.destroy
-        Relationship.find_by_id(re.id).should be_nil
+        expect(Relationship.find_by_id(re.id)).to be_nil
       end
     end
   end
@@ -261,7 +261,7 @@ describe "User pages" do
 
     it "should render the user's feed" do
       user.feed.each do |item|
-        page.should have_selector("li##{item.id}", text: item.content)
+        expect(page).to have_selector("li##{item.id}", text: item.content)
       end
     end
     
@@ -291,7 +291,7 @@ describe "User pages" do
         end
         it "page 2" do
           user.reload.feed[31..30].each do |item|
-            page.should have_selector("li##{item.id}", text: item.content)
+            expect(page).to have_selector("li##{item.id}", text: item.content)
           end
         end
       end

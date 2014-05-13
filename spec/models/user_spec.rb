@@ -75,7 +75,7 @@ describe User do
                      foo@bar_bax.com foo@bar+baz.com]
       addresses.each do |invalid_address|
         @user.email = invalid_address
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
   end
@@ -85,7 +85,7 @@ describe User do
       addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
       addresses.each do |valid_address|
         @user.email = valid_address
-        @user.should be_valid
+        expect(@user).to be_valid
       end
     end
   end
@@ -122,7 +122,7 @@ describe User do
       let(:user_for_invalid_password) { found_user.authenticate("invalid") }
 
       it { should_not == user_for_invalid_password }
-      specify { user_for_invalid_password.should be_false }
+      specify { expect(user_for_invalid_password).to be_false }
     end
   end
 
@@ -137,7 +137,7 @@ describe User do
     it "should be saved as all lower-case" do
       @user.email = mixed_case_email
       @user.save
-      @user.reload.email.should == mixed_case_email.downcase
+      expect(@user.reload.email).to eq mixed_case_email.downcase
     end
   end
 
@@ -158,15 +158,15 @@ describe User do
     end
 
     it "should have the right microposts in the right order" do
-      @user.microposts.should  == [newer_micropost, older_micropost]
+      expect(@user.microposts).to eq [newer_micropost, older_micropost]
     end
 
     it "should destroy associated microposts" do
       microposts = @user.microposts.to_a
       @user.destroy
-      microposts.should_not be_empty
+      expect(microposts).not_to be_empty
       microposts.each do |micropost|
-        Micropost.find_by_id(micropost.id).should be_nil
+        expect(Micropost.find_by_id(micropost.id)).to be_nil
       end
     end
 

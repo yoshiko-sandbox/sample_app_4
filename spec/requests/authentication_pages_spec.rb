@@ -64,7 +64,7 @@ describe "Authentication" do
 
         describe "submitting to the update action" do
           before { put user_path(user) }
-          specify { response.should redirect_to(signin_path) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "visiting the user index" do
@@ -91,7 +91,7 @@ describe "Authentication" do
 
         describe "after signing in" do
           it "should render the desired protected page" do
-            page.should have_title('Edit user')
+            expect(page).to have_title('Edit user')
           end
 
           describe "when signing in again" do
@@ -102,18 +102,18 @@ describe "Authentication" do
             end
 
             it "should render the default (profile) page" do
-              page.should have_title(user.name)
+              expect(page).to have_title(user.name)
             end
           end
 
           describe "newにきたらrootにリダイレクト" do
             before { get new_user_path }
-            specify { response.should redirect_to(root_path) }
+            specify { expect(response).to redirect_to(root_path) }
           end
 
           describe "createにきたらrootにリダイレクト" do
             before { get signup_path }
-            specify { response.should redirect_to(root_path) }
+            specify { expect(response).to redirect_to(root_path) }
           end
         end
       end
@@ -122,24 +122,24 @@ describe "Authentication" do
 
         describe "submitting to the create action" do
           before { post microposts_path }
-          specify { response.should redirect_to(signin_path) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the destroy action" do
           before { delete micropost_path(FactoryGirl.create(:micropost)) }
-          specify { response.should redirect_to(signin_path) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
       end
 
       describe "in the Relationships controller" do
         describe "submitting to the create action" do
           before { post relationships_path }
-          specify { response.should redirect_to(signin_path) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the destroy action" do
           before { delete relationship_path(1) }
-          specify { response.should redirect_to(signin_path) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
       end
     end
@@ -156,7 +156,7 @@ describe "Authentication" do
 
       describe "submitting a PUT request to the Users#update action" do
         before { put user_path(wrong_user) }
-        specify { response.should redirect_to(root_path) }
+        specify { expect(response).to redirect_to(root_path) }
       end
 
     end
@@ -169,7 +169,7 @@ describe "Authentication" do
 
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
-        specify { response.should redirect_to(root_path) }
+        specify { expect(response).to redirect_to(root_path) }
       end
     end
 

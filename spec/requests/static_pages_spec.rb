@@ -29,7 +29,7 @@ describe "Static pages" do
 
       it "should render the user's feed" do
         user.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.content)
+          expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
       
@@ -59,7 +59,7 @@ describe "Static pages" do
         end
         it "page 2" do
           user.reload.feed[31..30].each do |item|
-            page.should have_selector("li##{item.id}", text: item.content)
+            expect(page).to have_selector("li##{item.id}", text: item.content)
           end
         end
       end
@@ -94,16 +94,16 @@ describe "Static pages" do
   it "should have the right links on the layout" do
     visit root_path
     click_link "About"
-    page.should have_title full_title('About Us')
+    expect(page).to have_title full_title('About Us')
     click_link "Help"
-    page.should have_title full_title('Help')
+    expect(page).to have_title full_title('Help')
     click_link "Contact"
-    page.should have_title full_title('Contact')
+    expect(page).to have_title full_title('Contact')
     click_link "Home"
     click_link "Sign up now!"
-    page.should have_title full_title('Sign up')
+    expect(page).to have_title full_title('Sign up')
     click_link "sample app"
-    page.should have_title full_title('')
+    expect(page).to have_title full_title('')
   end
 
 end
