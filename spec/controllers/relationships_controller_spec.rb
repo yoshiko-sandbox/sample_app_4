@@ -1,5 +1,4 @@
 require 'spec_helper'
-include SessionsHelper
 
 describe RelationshipsController do
 
